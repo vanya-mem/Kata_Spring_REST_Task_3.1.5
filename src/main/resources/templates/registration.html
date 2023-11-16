@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<div>
+    <form th:method="POST" th:action="@{/registration}" th:object="${userForm}">
+        <label for="username">Введите имя пользователя: </label>
+        <input type="text" th:field="*{username}" id="username"/>
+        <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
+        <br/>
+        <label for="email">Введите email: </label>
+        <input type="text" th:field="*{email}" id="email"/>
+        <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+        <br/>
+        <label for="password">Введите пароль: </label>
+        <input type="password" th:field="*{password}" id="password"/>
+        <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+        <br/>
+        <label for="roles">Choose role: </label>
+        <input type="checkbox" id="roles"
+               th:each="role : ${roles}"
+               th:text="${role.getName()}"
+               th:value="${role.getId()}"
+               th:field="*{roles}"
+        />
+        <br/>
+        <input type="submit" value="Sign up!"/>
+    </form>
+</div>
+</body>
+</html>
